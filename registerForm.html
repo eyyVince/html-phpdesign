@@ -1,33 +1,59 @@
+<?php
+$host = "127.0.0.1";
+$username = "root";
+$password = "";
+$dbname = "user_data";
+
+$con = mysqli_connect($host, $username, $password, $dbname);
+
+if (!$con) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+if (isset($_POST['submit'])) {
+
+    $username = mysqli_real_escape_string($con, $_POST['username']);
+    $password = mysqli_real_escape_string($con, $_POST['password']);
+
+
+    $sql = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
+
+    if (mysqli_query($con, $sql)) {
+        $message = "Registration successful! <a href='index.php'>Login</a>";
+        $_SESSION['success'] = "Account registered! You can now login";
+    } else {
+        echo "Error: " . mysqli_error($con);
+    }
+}
+
+mysqli_close($con);
+?>
+
 <!DOCTYPE html>
    <html lang="en">
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-      <!--=============== REMIXICONS ===============-->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" crossorigin="">
-
-      <!--=============== CSS ===============-->
       <link rel="stylesheet" href="assets/css/register.css">
 
-      <title>Login and Reg
-         istration</title>
+      <title>Registration</title>
    </head>
    <body>
       <div class="register">
          <img src="assets/img/login-bg.png" alt="image" class="login__bg">
 
-         <form action="" class="reg__form">
+         <form action="" method="POST" class="reg__form">
             <h1 class="reg__title">Register Account</h1>
 
             <div class="reg__inputs">
                <div class="reg__box">
-                  <input type="email" placeholder="Email ID" required class="reg__input">
+                  <input type="email"name="username" placeholder="Email ID" required class="reg__input">
                   <i class="ri-mail-fill"></i>
                </div>
 
                <div class="reg__box">
-                  <input type="password" placeholder="Password" required class="reg__input">
+                  <input type="password" name="password" placeholder="Password" required class="reg__input">
                   <i class="ri-lock-2-fill"></i>
                </div>
             </div>
@@ -41,10 +67,9 @@
                <a href="#" class="reg__forgot">Forgot Password?</a>
             </div>
 
-            <button type="submit" class="reg__button">Login</button>
+            <button type="submit" name="submit" class="reg__button">Register</button>
 
-            <div class="register__login">
-               Already have an account? <a href="#">Login</a>
+            <div class="register__login">Already have an account? <a href="index.php">Login</a>
             </div>
          </form>
       </div>
