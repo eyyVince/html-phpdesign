@@ -26,18 +26,12 @@
 <html>
 <head>
     <title>Dashboard</title>
-    <img src="assets/img/login-bg.png" alt="image" class="login__bg">
-    <style>
-        body { font-family: Arial; padding: 20px; }
-        table { width: 50%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
-        th { background-color: #4CAF50; color: white; }
-        button { padding: 10px; margin-top: 20px; }
-    </style>
+    <link rel="stylesheet" href="assets/css/dashboard.css">
 </head>
-<body>
-<h2>Welcome, <?php echo $_SESSION['username']; ?>!</h2>
-<p>User Dashboard</p>
+<body class="dashboard">
+    <img src="assets/img/login-bg.png" class="dashboard-bg" alt="background">
+<h2 style="font-family: Arial; color: black;">Welcome, <?php echo $_SESSION['username']; ?>!</h2>
+<h2 style="font-family: Arial; color: black;">User Dashboard</h2>
 
 <br>
 <button onclick="window.location.href='index.php'">Logout</button>
